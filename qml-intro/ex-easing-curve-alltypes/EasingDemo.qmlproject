@@ -1,0 +1,15 @@
+import QmlProject 2.0
+
+Project {
+    mainFile: "main.qml"
+
+    QmlFiles {
+        directory: "."
+    }
+    JavaScriptFiles {
+        directory: "."
+    }
+    ImageFiles {
+        directory: "../images"
+    }
+}

@@ -1,0 +1,8 @@
+import QmlProject 1.0
+Project {
+    mainFile: "ex-mixed-animation.qml"
+
+    QmlFiles {
+        directory: "."
+    }
+}
