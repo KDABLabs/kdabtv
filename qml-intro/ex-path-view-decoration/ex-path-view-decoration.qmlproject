@@ -1,0 +1,8 @@
+import QmlProject 1.0
+Project {
+    mainFile: "ex-path-view-decoration.qml"
+
+    QmlFiles {
+        directory: "."
+    }
+}
