@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Roadrunner.gif</file>
+        <file>main.qml</file>
+    </qresource>
+</RCC>
