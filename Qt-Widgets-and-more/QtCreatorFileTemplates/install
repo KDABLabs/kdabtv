@@ -1,0 +1,15 @@
+#! /usr/bin/env python
+
+import platform, os,shutil
+
+if platform.platform().lower().startswith("windows"):
+    dir = os.getenv("APPDATA") + "/QtProject/qtcreator/templates/wizards/kdabviewer"
+else:
+    dir = os.getenv("HOME") + "/.config/QtProject/qtcreator/templates/wizards/kdabviewer"
+
+print("Installing files to " + dir)
+if os.path.exists(dir):
+    shutil.rmtree(dir)
+os.makedirs(dir)
+for file in ["file.cpp", "file.h", "file.ui", "wizard.json", "kdabviewer.png"]:
+    shutil.copy(file,dir)

@@ -1,0 +1,104 @@
+{
+    "version": 1,
+    "supportedProjectTypes": [ ],
+    "id": "Z.KDV",
+    "category": "R.Qt",
+    "trDescription": "Template for KDV Dashlets",
+    "trDisplayName": "KDABViewer Dashlets",
+    "trDisplayCategory": "Qt",
+    "icon": "kdabviewer.png",
+    "enabled": "%{JS: value('Plugins').indexOf('CppEditor') >= 0}",
+
+    "options":
+    [
+        { "key": "TargetPath", "value": "%{Path}" },
+        { "key": "HdrFileName", "value": "%{CN}.h" },
+        { "key": "HdrPath", "value": "%{Path}/%{HdrFileName}" },
+        { "key": "SrcFileName", "value": "%{CN}.cpp" },
+        { "key": "UiFileName", "value": "%{CN}.ui" },
+        { "key": "UiPath", "value": "%{Path}/%{UiFileName}" },
+        { "key": "SrcPath", "value": "%{Path}/%{SrcFileName}" },
+        { "key": "CN", "value": "%{JS: Cpp.className(value('Class'))}" },
+        { "key": "Base", "value": "%{JS: value('BaseCB') === '' ? value('BaseEdit') : value('BaseCB')}" },
+        { "key": "isQObject", "value": "%{JS: [ 'QObject', 'QWidget', 'QMainWindow', 'QDeclarativeItem', 'QQuickItem'].indexOf(value('Base')) >= 0 }" },
+        { "key": "GUARD", "value": "%{JS: Cpp.classToHeaderGuard(value('Class'), Util.suffix(value('HdrFileName')))}" },
+        { "key": "SharedDataInit", "value": "%{JS: (value('IncludeQSharedData')) ? 'data(new %{CN}Data)' : '' }" },
+        { "key": "Dependencies", "value": "%{JS: '' + (value('IncludeQObject') || value('IncludeQSharedData') || value('BaseCB') === 'QObject' ? ':Qt.core' : '') + (value('IncludeQWidget') || value('IncludeQMainWindow') || value('BaseCB') === 'QWidget' || value('BaseCB') === 'QMainWindow' ? ':Qt.widgets' : '') + (value('IncludeQQuickItem') || value('BaseCB') === 'QQuickItem' ? ':Qt.quick' : '')}"}
+    ],
+
+    "pages":
+    [
+        {
+            "trDisplayName": "Define Class",
+            "trShortTitle": "Details",
+            "typeId": "Fields",
+            "data" :
+            [
+                {
+                    "name": "Class",
+                    "trDisplayName": "Class name:",
+                    "mandatory": true,
+                    "type": "LineEdit",
+                    "data": { "validator": "(?:(?:[a-zA-Z_][a-zA-Z_0-9]*::)*[a-zA-Z_][a-zA-Z_0-9]*|)" }
+                },
+                {
+                    "name": "DashletPath",
+                    "trDisplayName": "Dashlet Path:",
+                    "mandatory": true,
+                    "type": "LineEdit",
+                    "data": { "validator": "[a-zA-Z /]+[a-zA-Z]" }
+                },
+                {
+                    "name": "Path",
+                    "type": "PathChooser",
+                    "trDisplayName": "Path:",
+                    "mandatory": true,
+                    "data":
+                    {
+                        "kind": "directory",
+                        "basePath": "%{InitialPath}",
+                        "path": "%{InitialPath}"
+                    }
+                }
+            ]
+        },
+        {
+            "trDisplayName": "Project Management",
+            "trShortTitle": "Summary",
+            "typeId": "Summary"
+        }
+    ],
+
+    "generators":
+    [
+        {
+            "typeId": "File",
+            "data":
+            [
+                {
+                    "source": "file.h",
+                    "target": "%{HdrPath}",
+                    "openInEditor": true,
+                    "options": [
+                        { "key": "Cpp:License:FileName", "value": "%{HdrFileName}" },
+                        { "key": "Cpp:License:ClassName", "value": "%{CN}" }
+                    ]
+                },
+                {
+                    "source": "file.ui",
+                    "target": "%{UiPath}",
+                    "openInEditor": true
+                },
+                {
+                    "source": "file.cpp",
+                    "target": "%{SrcPath}",
+                    "openInEditor": true,
+                    "options": [
+                        { "key": "Cpp:License:FileName", "value": "%{SrcFileName}" },
+                        { "key": "Cpp:License:ClassName", "value": "%{CN}" }
+                    ]
+                }
+            ]
+        }
+    ]
+}
