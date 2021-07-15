@@ -1,0 +1,3 @@
+#!/bin/sh
+
+python .git/hooks/pre-commit-clang-format.py
