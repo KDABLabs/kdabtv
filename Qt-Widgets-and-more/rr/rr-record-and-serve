@@ -1,0 +1,19 @@
+#!/bin/sh
+RR=/home/blackie/Apps/build-rr/bin/rr
+
+if [ ! -e $RR ]; then
+  echo "please adapt the script to point to your rr"
+  exit
+fi  
+
+if [ $# -eq 0 ]; then
+  echo "syntax: $0 <binary-to-debug>"
+  exit
+fi
+
+killall -w $RR
+# comment in if you dare to run rm -rf rom a script :-)
+# rm -rf ~/.local/share/rr
+
+$RR $1
+$RR replay -s 50505 -k

@@ -1,0 +1,2 @@
+In the video I had my changes in personaltypes.py, but that only works if that
+file do not exists in its default location, I therefore renamed it to QWAMTypes.py
