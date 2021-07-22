@@ -5,7 +5,7 @@ This repository contains the code of the examples showcased in the **KDAB TV vid
 
 # Licensing
 
-The code in this repository is (C) 2020, Klarälvdalens Datakonsult AB, and is available under the terms of the MIT license (see LICENSE.txt).
+The code in this repository is (C) 2021, Klarälvdalens Datakonsult AB, and is available under the terms of the MIT license (see LICENSE.txt).
 
 Contact KDAB at <info@kdab.com> if you need different licensing options.
 
