@@ -1,6 +1,7 @@
 # KDAB TV Code Repository
 
-This repository contains the code of the examples showcased in the **KDAB TV video series**, which are freely available [here](https://www.kdab.com/kdabtv).
+This repository contains the code of the examples showcased in the **KDAB TV video series**, which are freely available [here](https://www.kdab.com/kdabtv)
+as well as on [KDAB's YouTube channel](https://www.youtube.com/kdabtv).
 
 
 # Licensing
