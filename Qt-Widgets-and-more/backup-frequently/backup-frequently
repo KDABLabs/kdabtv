@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+import os, datetime, os.path,re,sys
+
+# Of course you need to modify the path where the backup should go
+BACKUPDIR = "/home/blackie/Backup/Frequently"
+
+if not os.path.exists(BACKUPDIR):
+    print("Backup dir %s do not exists" % BACKUPDIR)
+    sys.exit(-1)
+   
+def backupDir(title, srcdir, excludeList):
+    now = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
+    destdir = BACKUPDIR + "/" + title
+    
+    if not os.path.exists(destdir):
+        os.makedirs(destdir)
+        
+    excludes = ""
+    for exclude in excludeList:
+        excludes = excludes + " --exclude \"" + exclude + "\""
+
+    cmd = "rsync %s --delete --backup --backup-dir=\"%s/archive/%s\" --archive --ignore-errors \"%s\" \"%s/current/\"" % \
+        (excludes, destdir, now, srcdir, destdir)
+    print("Running command: " + cmd)
+    os.system(cmd)
+    
+# And modify which files to back up here    
+backupDir("KDABViewer", "/home/blackie/KDAB/KDABViewer",[])
+backupDir("QWAM", "/home/blackie/KDAB/QtWidgtetsAndMore", [])
+backupDir("Dashlet-settings", "/home/blackie/.KDABViewer-Settings", [])

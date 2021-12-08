@@ -1,0 +1,44 @@
+#! /bin/bash
+
+if [ $# != 2 ]; then
+  echo "This script runs clang-tidy on the file specified and check specified, and applies its fixit"
+  echo ""
+  echo "Debug information are printed during execution if the variable VERBOSE is set to 1"
+  echo "syntax: $0 <file> <check>"
+  exit -1
+fi
+
+BASE=`basename \`pwd\``
+BUILDDIR=`echo ../build-$BASE-*`
+FILE=$1
+CHECK=$2
+
+if [ $VERBOSE ]; then
+  echo "BASE=$BASE"
+  echo "BUILDIR=$BUILDDIR"
+  echo "FILE=$FILE"
+  echo "CHECK=$CHECK"
+fi
+
+if [ ! -d "$BUILDDIR" ]; then
+  echo "failed to find the build directory"
+  exit -1
+fi
+
+if [[ "$BUILDDIR" =~ ' ' ]]; then
+  echo "Seems like there are multiple build dirs - no idea how to proceed"
+  exit -1
+fi
+
+if [ ! -e $BUILDDIR/compile_commands.json ]; then
+  echo "Didn't find $BUILDDIR/compile_commands.json, did you run Build->Generate Compilation databse in Qt Creator?"
+  exit -1
+fi
+
+
+CMD="clang-tidy -checks=$CHECK -p $BUILDDIR -fix $FILE"
+if [ $VERBOSE ]; then
+     echo $CMD
+fi
+
+eval $CMD

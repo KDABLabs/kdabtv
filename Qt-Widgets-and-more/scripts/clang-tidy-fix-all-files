@@ -1,0 +1,19 @@
+#! /bin/bash
+
+if [ $# != 1 ]; then
+  echo "This script run clang-tidy on all source files in your current repository, "
+  echo "and apply the fix specified by the single argument it expects."
+  echo "syntax: $0 <check>"
+  exit -1
+fi
+
+CHECK=$1
+FILES=`find -name \*.cpp | grep -v 3rdparty`
+COUNT=`echo $FILES | wc -w`
+INDEX=0
+
+for FILE in $FILES; do
+  let "INDEX=INDEX+1"
+  echo $INDEX/$COUNT --------$FILE---------
+  clang-tidy-fix-one-file $FILE $CHECK
+done
