@@ -1,0 +1,60 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#
+################################################################################
+#
+# Converted from Milian's Bourne shell version at
+# http://milianw.de/code-snippets/a-git-hook-to-prevent-pushes-with-untracked-source-files
+#
+################################################################################
+
+import re
+import subprocess
+import sys
+
+#
+# A hook script to verify that a push is not done with untracked source file
+#
+# To use it, either symlink this script to $your-git-clone/.git/hooks/pre-push
+# or include it in your existing pre-push script.
+#
+
+# Python-style regular expression which limits the files we interpret as source files.
+# The default pattern here excludes any .h/.cpp/.cmake/.txt files.
+# Extend/adapt this to your needs. Alternatively, set the pattern in your repo via:
+#     git config hooks.prepush.sourcepattern "$your-pattern"
+def GETPATTERN():
+    cmd = "git config --get hooks.prepush.sourcepattern"
+    try:
+        pattern = subprocess.check_output(cmd.split()).splitlines()[0]
+    except subprocess.CalledProcessError as e:
+        pattern = ".*(txt|cpp|h|cmake)$"
+
+    return pattern
+
+def main():
+    cmd = "git status -u --porcelain --no-column"
+    try:
+        lines = subprocess.check_output(cmd.split()).decode('utf-8').splitlines()
+    except subprocess.CalledProcessError as e:
+        lines = ()
+    pattern = re.compile(GETPATTERN())
+
+    files = []
+    for l in lines:
+        l = re.sub('^\?\? ', '', l)
+        if not l.startswith(" M") and pattern.match(l):
+            files.append(l)
+
+    if len(files) > 0:
+        sys.stderr.write("\nERROR: Preventing push with untracked source files:\n")
+        for f in files:
+            sys.stderr.write("    " + f + "\n")
+        sys.stderr.write("Either include these files in your commits, add them to .gitignore\n")
+        sys.stderr.write("or stash them with git stash -u.\n\n")
+        sys.exit(1)
+
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+RESULT=0
+for file in `git rev-parse --git-path hooks`/pre-commit.d/*; do
+  $file
+  if [ $? -ne 0 ]; then
+     RESULT=1
+  fi
+done
+
+return $RESULT
