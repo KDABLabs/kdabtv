@@ -1,0 +1,43 @@
+[alias]
+    lg = log --graph \
+         --pretty=format:'%Cred%h (%aN)%Creset %C(yellow)%d%Creset %s%Cgreen(%cr)%Creset' \
+         --abbrev-commit --date=relative
+    b = checkout -b
+    brnach=branch
+    st=status
+    d=diff
+    move=mv
+    url=config --get remote.origin.url
+    ci = commit
+    co = "!echo ahem, switch or restore please"
+    amend = commit --amend -C HEAD
+    cp = cherry-pick
+    serve = !git daemon --reuseaddr --export-all --base-path=. --verbose ./.git
+    show-files = show --pretty="format:" --name-only
+    search = log -S
+    history=log -u
+    s = "!clear; git show"
+    where=branch --contains
+    diff-color=diff --color-words
+    stat=shortlog -s -n --all
+    show-author="!echo git lg --author=\\\"$1\\\""
+    remove-remote-branch=push origin --delete
+    fix-message=commit --amend
+    aliases = !git config --get-regexp 'alias.*' | cut -c 7- | sed 's/[ ]/ = /'
+    cat=!echo "it is git show rev:file and file need to be full path from root dir"
+    nuke=branch -D
+    nuke-remote= !echo "Execute: git push origin --delete \\<branch name\\>"
+    nuke-this= "!sh -c \"git checkout master; git nuke `git rev-parse --abbrev-ref HEAD`\""
+    ib = branch
+
+    # What's new with last command  – typically after a git pull
+    new = !sh -c 'git lg $1@{1}..$1@{0} "$@"'
+
+    review = "!git branch -m review/`git rev-parse --abbrev-ref HEAD|sed 's!wip/!!'`; git gpush; git checkout master"
+    wip="!f () { git b \"wip/$1\"; }; f"
+    diff-branches = diff_branches
+    p="!git pull; git new"
+    rename-current-branch=branch -m
+    rename-branch=branch -m
+    sw=switch
+    save=commit -mWIP -a --no-verify
