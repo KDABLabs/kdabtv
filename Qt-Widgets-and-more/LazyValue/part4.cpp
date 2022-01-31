@@ -21,6 +21,9 @@ private:
     mutable ValueType m_value = {};
 };
 
+template <typename Calculator>
+LazyValueV2(Calculator) -> LazyValueV2<std::remove_cv_t<std::remove_reference_t<Calculator>>>;
+
 int part4()
 {
     const LazyValueV2 x([] { return calculate(42); });
