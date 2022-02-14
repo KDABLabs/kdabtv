@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "113188812272",
+    "project_id": "chatapp-dc040",
+    "storage_bucket": "chatapp-dc040.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113188812272:android:3d00405e91316a79349935",
+        "android_client_info": {
+          "package_name": "com.kdab.kdchatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113188812272-8sf72tu0ik51qf9gqlbjpvh7lv325efp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHNfwHF_jes_va5HaqodsKfXNTYWEq3RY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113188812272-8sf72tu0ik51qf9gqlbjpvh7lv325efp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
