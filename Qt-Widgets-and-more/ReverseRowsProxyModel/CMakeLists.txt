@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.9)
+project(ReverseRowsProxyModel)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Gui Widgets REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} CONFIG REQUIRED COMPONENTS Core Gui Widgets)
+set(CMAKE_AUTOMOC TRUE)
+set(CMAKE_AUTORCC TRUE)
+set(CMAKE_AUTOUIC TRUE)
+
+add_library(QWAMLib SHARED ReverseRowsProxyModel.cpp Demo.cpp Demo.ui)
+target_link_libraries(QWAMLib Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets)
+
+add_executable(ReverseRowsProxyModel main.cpp)
+target_link_libraries(ReverseRowsProxyModel QWAMLib)
+add_subdirectory(unitTests)
