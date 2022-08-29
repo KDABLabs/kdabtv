@@ -1,85 +1,123 @@
-import subprocess, re, sys,os, os.path, shutil, time, glob
+#!/usr/bin/env python3
+#
+# Usage: The idea is that this script can be edited by hand for the project you work on
+#   There's no 'one fits all' solution for this
+#
+# You might need to adapt the following vars for your project:
+#   - ITERATIONS
+#   - PCH_FILENAME
+#   - EXTRA_CMAKE_ARGS
+#
+# Note: The actual tests which are being run can be controlled by toggling (uncomment/comment)
+# the functions at the end of of this file.
 
-ROOT="/home/blackie/dump/KDABViewer"
-BUILDROOT=ROOT+"/build"
-ITERATIONS=5
-FOREAL=1
-CCACHE="/usr/lib/ccache"
+
+import glob
+import multiprocessing
+import os
+import os.path
+import shutil
+import re
+import subprocess
+import sys
+import time
+
+# BEGIN: Constants
+
+ROOT=os.getcwd()
+BUILDROOT=os.path.join(ROOT, "build")
+ITERATIONS=1
+FORREAL=True
+CCACHE_PATH="/usr/lib/ccache"
+
+PCH_FILENAME="ruqola_pch.h"
+EXTRA_CMAKE_ARGS=["-DUSE_PRECOMPILED_HEADERS=OFF"]
+
+# END: Constants
+
+CURRENT_TIMINGFILE=None
 
 def runCommand(cmd):
-    print(" ".join(cmd))
-    if FOREAL:
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        res = process.communicate()[0]
-        #print(res)
+    print(f"Executing: {' '.join(cmd)}")
+    if FORREAL:
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+        stdout, stderr = process.communicate()
+        if process.returncode != 0:
+            print(f"Error: Process returned {process.returncode}!")
+            print("stdout:\n\n")
+            print(stdout)
+            print("stderr:\n\n")
+            print(stderr)
+
+    return process.returncode == 0
 
 def nukeBuildDir():
-    if FOREAL:
-        shutil.rmtree(BUILDROOT)
+    if FORREAL:
+        if os.path.exists(BUILDROOT):
+            shutil.rmtree(BUILDROOT)
         os.mkdir(BUILDROOT)
 
 def clearCCache():
-    runCommand(["/usr/bin/ccache", "-C"])
+    return runCommand(["/usr/bin/ccache", "-C"])
 
 def runCMake(clang, ninja, define=None):
     command=["cmake"]
 
     if clang:
-        command = command + ["-DCMAKE_CXX_COMPILER=clang++"]
+        command = command + ["-DCMAKE_C_COMPILER=clang", "-DCMAKE_CXX_COMPILER=clang++"]
+    else:
+        command = command + ["-DCMAKE_C_COMPILER=gcc", "-DCMAKE_CXX_COMPILER=g++"]
     if ninja:
         command = command + ["-G", "Ninja"]
 
     if define:
         command = command + ["-DCMAKE_CXX_FLAGS=-D" + define]
 
-    command = command + [".."]
-    runCommand(command)
+    command = command + EXTRA_CMAKE_ARGS + [".."]
+    return runCommand(command)
 
 def compile(ninja):
-    os.environ["MAKEFLAGS"]="-j 16"
-    command = ["make", "-j", "16"]
+    os.environ["MAKEFLAGS"] = f"-j{multiprocessing.cpu_count()}"
+    command = ["make", "-j", f"{multiprocessing.cpu_count()}"]
     if ninja:
         command = ["ninja"]
-    runCommand(command)
+    return runCommand(command)
 
 def setOutputFile(filename):
-    global TIMINGFILE
-    TIMINGFILE="/home/blackie/profiling/"+filename
+    global CURRENT_TIMINGFILE
+    CURRENT_TIMINGFILE=os.path.join(ROOT, filename)
     writeHeader()
 
-
 def writeHeader():
-    FILE = open(TIMINGFILE, "w")
-    FILE.write("compiler,build system,cclang on,stage,time\n")
+    with open(CURRENT_TIMINGFILE, "w") as f:
+        f.write("compiler,build system,ccache on,stage,time\n")
 
 def addOutputLine(clang,ninja,step,time):
-    FILE = open(TIMINGFILE, "a+")
-    ccacheon = "ccache" in os.environ["PATH"]
-    FILE.write("%s,%s,%s,%s,%s\n" % ("clang" if clang else "gcc", "ninja"  if ninja else "make", "yes" if ccacheon else "no", step, int(round(time))))
+    with open(CURRENT_TIMINGFILE, "a+") as f:
+        ccacheon = "ccache" in os.environ["PATH"]
+        f.write("%s,%s,%s,%s,%s\n" % ("clang" if clang else "gcc", "ninja"  if ninja else "make", "yes" if ccacheon else "no", step, int(round(time))))
 
 def makeClean(ninja):
-    runCommand(["ninja" if ninja else "make", "clean"])
+    return runCommand(["ninja" if ninja else "make", "clean"])
 
 def timeAndWrite(clang,ninja,step):
     start=time.time()
-    compile(ninja)
+    success = compile(ninja)
     end = time.time()
-    addOutputLine(clang,ninja, step, end-start)
+    addOutputLine(clang, ninja, step, (end-start) if success else -1)
 
 def setOrUnsetCCacheInPath(doInclude):
     path = os.environ["PATH"].split(":")
     path = filter(lambda item: "ccache" not in item, path)
     if doInclude:
-        path = [CCACHE] + path
+        path = [CCACHE_PATH] + path
     os.environ["PATH"] = ":".join(path)
 
-
-# ---------------------------- Test funcitons
 
 def oneGoWithCompilterAndBuildSystem(clang,ninja):
     clearCCache()
     nukeBuildDir()
-
+    os.makedirs(BUILDROOT, exist_ok=True)
     os.chdir(BUILDROOT)
 
     runCMake(clang=clang, ninja=ninja)
@@ -114,13 +152,15 @@ def ccacheTest():
 def runPCHMutation(headers):
     for index in range(len(headers)+1):
         subList = headers[:index]
-        if FOREAL:
-            FILE = open(ROOT + "/KDABViewer_pch.h","w")
-            for x in subList:
-                FILE.write("#include <%s>\n" % x)
-            FILE.close()
+        if FORREAL:
+            with open(os.path.join(ROOT, PCH_FILENAME), "w") as f:
+                for x in subList:
+                    f.write("#include <%s>\n" % x)
+
+        print(f"pchTest------> Using headers in PCH: {subList}")
 
         nukeBuildDir()
+        os.makedirs(BUILDROOT, exist_ok=True)
         os.chdir(BUILDROOT)
         runCMake(clang=1,ninja=1)
         compile(ninja=1)
@@ -134,9 +174,8 @@ def pchTest():
     setOutputFile("PCH.csv")
     setOrUnsetCCacheInPath(0)
 
-    runPCHMutation(["QtWidgets", "QtGui", "QtCore", "KDChart", "memory", "functional"]) # "chrono", "cmath", "optional", "mutex", "array", "vector", "numeric", "algorithm"
-    runPCHMutation(["QtCore", "QtGui", "QtWidgets"])
-
+    runPCHMutation(["QtCore", "QtGui", "QtWidgets"]) # "chrono", "cmath", "optional", "mutex", "array", "vector", "numeric", "algorithm"
+    #runPCHMutation(["QtCore", "QtGui", "QtWidgets"])
 
 
 # -------- pchMostUsedTest
@@ -156,12 +195,14 @@ def countIncludes(filename, map):
 def findSystemIncludes():
     map = {}
     for filename in glob.glob(ROOT + "/**/*.cpp", recursive=1)+ glob.glob(ROOT + "/**/*.h",recursive=1) :
-        if "3rdparty" in filename or "prefix" in filename or "xternal" in filename:
+        if "3rdparty" in filename or "prefix" in filename or "external" in filename:
             continue
         countIncludes(filename, map)
     list = sorted(map.items(), key=lambda x: x[1])
     list.reverse()
-    print(list)
+    with open("Most-Used-Includes.csv", "w") as f:
+        for key,count in list:
+            f.write(f"{key}, {count}\n")
     return [key for (key,count) in list]
 
 def pchMostUsedTest():
@@ -178,9 +219,9 @@ def pchMostUsedTest():
 
     steps=len(list)
     for stage in range(steps):
-        with open(ROOT + "/KDABViewer_pch.h","w") as FILE:
+        with open(os.path.join(ROOT, PCH_FILENAME), "w") as f:
             for i in range(stage):
-                FILE.write("#include<%s>\n" % list[i])
+                f.write("#include<%s>\n" % list[i])
 
         runCMake(clang=1,ninja=1)
         compile(ninja=1)
@@ -190,6 +231,9 @@ def pchMostUsedTest():
             timeAndWrite(clang=1, ninja=1, step="%d" % stage)
 
 
+# USAGE: Toggle (uncomment/comment) your test scenarios as wanted:
+
+#findSystemIncludes()
 #compileAndBuildSystemTest()
 #ccacheTest()
 #pchTest()
