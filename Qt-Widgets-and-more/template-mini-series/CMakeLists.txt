@@ -1,0 +1,5 @@
+project(template_miniseries)
+add_subdirectory(episode1)
+add_subdirectory(episode2)
+add_subdirectory(episode3)
+add_subdirectory(episode4)
