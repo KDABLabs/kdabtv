@@ -1,0 +1,83 @@
+{
+    "version": 3,
+    "configurePresets": [
+    {
+      "name": "cpp14",
+      "generator": "Ninja",
+      "cacheVariables": {
+            "CMAKE_CXX_STANDARD": "14"
+      }
+    },
+    {
+      "name": "cpp17",
+      "generator": "Ninja",
+      "cacheVariables": {
+            "CMAKE_CXX_STANDARD": "17"
+      }
+    },
+    {
+      "name": "cpp20",
+      "generator": "Ninja",
+      "cacheVariables": {
+            "CMAKE_CXX_STANDARD": "20"
+      }
+    },
+    {
+      "name": "cpp23",
+      "generator": "Ninja",
+      "cacheVariables": {
+            "CMAKE_CXX_STANDARD": "23"
+      }
+    },
+    {
+        "name": "gcc",
+        "hidden": true,
+        "cacheVariables": {
+            "CMAKE_C_COMPILER": "gcc",
+            "CMAKE_CXX_COMPILER": "g++"
+        },
+        "binaryDir": "${sourceDir}/build/${presetName}"
+    },
+    {
+        "name": "clang",
+        "hidden": true,
+        "cacheVariables": {
+            "CMAKE_C_COMPILER": "clang",
+            "CMAKE_CXX_COMPILER": "clang++"
+        },
+        "binaryDir": "${sourceDir}/build/${presetName}"
+    },
+    {
+        "name": "cpp14-gcc",
+        "inherits": ["cpp14", "gcc"]
+    },
+    {
+        "name": "cpp14-clang",
+        "inherits": ["cpp14", "clang"]
+    },
+    {
+        "name": "cpp17-gcc",
+        "inherits": ["cpp17", "gcc"]
+    },
+    {
+        "name": "cpp17-clang",
+        "inherits": ["cpp17", "clang"]
+    },
+    {
+        "name": "cpp20-gcc",
+        "inherits": ["cpp20", "gcc"]
+    },
+    {
+        "name": "cpp20-clang",
+        "inherits": ["cpp20", "clang"]
+    },
+    {
+        "name": "cpp23-gcc",
+        "inherits": ["cpp23", "gcc"]
+    },
+    {
+        "name": "cpp23-clang",
+        "inherits": ["cpp23", "clang"]
+    }
+]
+}
