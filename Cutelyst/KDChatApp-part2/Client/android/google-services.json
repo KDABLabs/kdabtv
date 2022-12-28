@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "113188812272",
-    "project_id": "chatapp-dc040",
-    "storage_bucket": "chatapp-dc040.appspot.com"
+    "project_number": "732704970011",
+    "project_id": "kdchatapp-78e9f",
+    "storage_bucket": "kdchatapp-78e9f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:113188812272:android:3d00405e91316a79349935",
+        "mobilesdk_app_id": "1:732704970011:android:ff676a6f9b1f22ccd5afbe",
         "android_client_info": {
           "package_name": "com.kdab.kdchatapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "113188812272-8sf72tu0ik51qf9gqlbjpvh7lv325efp.apps.googleusercontent.com",
+          "client_id": "732704970011-sm9d1576urjht52ncrdukiaq72kfvsfp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDHNfwHF_jes_va5HaqodsKfXNTYWEq3RY"
+          "current_key": "AIzaSyC83dMK1Hj7k0fQ29VkAqt--Y7D7kFoY4w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "113188812272-8sf72tu0ik51qf9gqlbjpvh7lv325efp.apps.googleusercontent.com",
+              "client_id": "732704970011-sm9d1576urjht52ncrdukiaq72kfvsfp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
