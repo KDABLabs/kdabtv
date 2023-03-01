@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>kdabtv.png</file>
+        <file>logo.png</file>
+        <file>DoubleCircle.qml</file>
+        <file>AppContent.qml</file>
+        <file>ColorSlider.qml</file>
+        <file>hsv-gradient.png</file>
+    </qresource>
+</RCC>
