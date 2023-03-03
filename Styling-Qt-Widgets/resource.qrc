@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/stylesheet">
+        <file>stylesheet.qss</file>
+        <file>check.png</file>
+        <file>check-dark.png</file>
+    </qresource>
+</RCC>

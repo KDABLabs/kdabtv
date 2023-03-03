@@ -1,0 +1,84 @@
+QPushButton, QCheckBox::indicator {
+    background-color: #a7211f22; /* [DARK] */
+    background-color: #f5f4f5; /* [LIGHT] */
+
+    border-width: 1px;
+    border-color: #59515f;  /* [DARK] */
+    border-color: #9f95a3;  /* [LIGHT] */
+    border-style: solid;
+    border-radius: 6px;
+    padding: 4px
+}
+
+QCheckBox::indicator {
+    border-radius: 5px; /* override the 6px from above */
+    width: 18px;
+    height: 18px;
+    padding: 0px;
+}
+
+QCheckBox::indicator:checked {
+    /* NOT SUPPORTED: drawing lines here, we need a PNG as input. Less flexible for re-colorization. */
+    image: url(:/stylesheet/check.png)       /* [LIGHT] */
+    image: url(:/stylesheet/check-dark.png)  /* [DARK] */
+}
+
+QPushButton:hover, QCheckBox::indicator:hover {
+    background-color: #33171717; /* [DARK] (20% alpha) */
+    background-color: #33f8f7f8; /* [LIGHT] (20% alpha) */
+
+    /* NOT SUPPORTED: calculations in the gradient definition, we'd have to set a dynamic stylesheet whenever the widget is resized... */
+    /* Also: the rendering is actually broken; bug reported as https://bugreports.qt.io/browse/QTBUG-105938 */
+    border-color: qlineargradient(x1:0.50, y1:1, x2:0.58, y2:0, stop:0 #53949f, stop:1 #755579);
+    color: #dddddd; /* light gray */
+}
+
+QPushButton:pressed, QCheckBox::indicator:pressed {
+    background-color: #171717; /* [DARK] */
+    background-color: #f8f7f8; /* [LIGHT] */
+    border-color: #322d35;
+    color: #656565; /* medium gray */
+}
+
+QPushButton:!enabled, QCheckBox::indicator:!enabled {
+    /* I wish I could just say    opacity: 0.5  instead of repeating all colors with a halved opacity  */
+
+    background-color: #53211f22; /* [DARK] */
+    background-color: #7ff5f4f5; /* [LIGHT] */
+    border-color: #7f59515f;  /* [DARK] */
+    border-color: #7f9f95a3;  /* [LIGHT] */
+    color: #7fa5a5a5; /* [DARK] */
+    color: #7f252525; /* [LIGHT] */
+}
+
+
+QProgressBar {
+    border-color: #59515f;  /* [DARK] - duplicated from QPushButton */
+    border-color: #9f95a3;  /* [LIGHT] - duplicated from QPushButton */
+    border-width: 1px;
+    border-style: solid;
+
+    background-color: #0f0f0f; /* [DARK] - almost black */
+    background-color: #fbfbfb; /* [LIGHT] - almost white */
+
+    height: 26px; /* hardcoded, could break with large fonts */
+    border-radius: 13px; /* half the height, hardcoded */
+
+    text-align: right; /* NOT SUPPORTED: 6px padding on the right of the text */
+    /* NOT SUPPORTED: painting a gradient on the outline, up until the current progress value */
+}
+
+QProgressBar::chunk {
+    /* looks buggy somehow */
+    border-color: qlineargradient(x1:0, y1:1, x2:1, y2:0, stop:0 #11c2e1, stop:1 #893a94);
+    border-width: 1px;
+    border-style: solid;
+    /* same as border-color but with 37% opacity */
+    background-color: qlineargradient(x1:0, y1:1, x2:1, y2:0, stop:0 #6011c2e1, stop:1 #60893a94);
+    border-radius: 11px;
+    margin: 2px;
+}
+
+QDialogButtonBox {
+    dialogbuttonbox-buttons-have-icons: 0;
+}
