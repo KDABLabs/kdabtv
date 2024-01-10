@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>685</width>
+    <height>565</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="TimelineWidget" name="timelinewidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>551</width>
+     <height>192</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="MonthSelector" name="monthselector">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>240</y>
+     <width>80</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="Tags::TagsList" name="tags::tagslist">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>230</y>
+     <width>256</width>
+     <height>223</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="DateButton" name="datebutton">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>290</y>
+     <width>80</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="dateFormat">
+    <string>yyyy:dd(MMM)</string>
+   </property>
+   <property name="date">
+    <date>
+     <year>2023</year>
+     <month>8</month>
+     <day>20</day>
+    </date>
+   </property>
+   <property name="allowEmptyDate">
+    <bool>true</bool>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DateButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">Widgets/DateButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MonthSelector</class>
+   <extends>QPushButton</extends>
+   <header location="global">Widgets/MonthSelector.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Tags::TagsList</class>
+   <extends>QWidget</extends>
+   <header location="global">Tags/TagsList.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TimelineWidget</class>
+   <extends>QTreeView</extends>
+   <header location="global">Widgets/TimelineWidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
