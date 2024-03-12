@@ -1,7 +1,7 @@
 TEMPLATE=subdirs
 SUBDIRS= \
   ex-allevents \
-   \
+  ex-closeevent \
   ex-connect-signal-slot-macros \
   ex-connect-function-pointers \
   ex-connect-invalid-connection \
@@ -20,6 +20,6 @@ SUBDIRS= \
    \
    \
   ex-window-watcher \
-   \
+  ex-paint-program \
   ex-stop-watch
 
