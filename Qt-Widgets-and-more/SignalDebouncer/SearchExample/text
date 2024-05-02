@@ -1,0 +1,21 @@
+When designing an embedded product, there’s a lot riding on those crucial first decisions of choosing a hardware vendor and board. Clearly, the hardware you select must be powerful enough to support your product, a challenging determination given that software is usually still in the planning stages at this point in the process. Plus, planning for post-launch capabilities that may be on the drawing board creates additional uncertainty as to how much power you’ll need. However, overspending on beefed up capacity that you will never use costs money, impacting the company’s bottom line.
+Optimizing time spent optimizing
+
+It’s not that you can’t change the hardware midstream, but it often takes a while to realize that the existing platform isn’t going to fit. Until hardware constraints become too problematic to ignore, software engineers can waste time working around a limited platform, struggling to debug it properly, and ultimately delivering a suboptimal product. A midstream hardware change stalls development, curtails developer creativity, and forces further software adaptations, elongating the development timeline and adding costs.
+When underpowered means underdelivering
+
+However, a more severe problem arises when teams fail to recognize the need for a hardware upgrade. Building around a less powerful chip to keep down costs can stifle feature sets and cripple performance. This can trap software teams into spending more time working on costly workarounds than on making forward progress. Operating at the edge of a usable system often results in feature cuts and time spent building makeshift solutions that lead to poor product quality, diminished user experience, and a codebase filled with workarounds. This creates deep holes that are nearly impossible to dig out of.
+Right-sizing your silicon
+
+Oof. Okay, what to do about it? Here a few guidelines that may help:
+
+    Carefully weigh your processing power, RAM, storage capacity, and I/O needs against the potential impacts they can make on development deadlines. As code size approaches onboard storage and RAM capacity, the time and effort to make things work grows exponentially. This is also the case for ongoing maintenance where preserving some headroom for additional features and fixes is essential.
+    Highly complex feature sets like user-configurable capabilities, new over-the-air updates, or 3D visualizations consume RAM and storage space much faster than other areas. Estimate generously to avoid the risk of having an amazing feature that can barely fulfil its promise.
+    Any embedded system is going to be connected to a raft of sensors, peripherals, and physical buttons. Detailed I/O planning is crucial to ensure your systems have enough GPIOs, A/Ds, D/As, UARTs, and USB, SPI, and I2C ports. Be sure to consider product expansions such as additional product lines and feature upgrades. Planning for some spare I/O capacity through expansion boards or modules early on can mitigate significant coding and reliability issues later on.
+    Boards with additional peripherals, even if not currently required, can add value down the line. For example, an extra USB port can be a huge advantage during development for networking or additional storage, and onboard Bluetooth can enable future customer-requested features.
+
+Critical choices shouldn’t be rushed
+
+The intersection of hardware capability and software design is where successful embedded systems are born. Thoughtful hardware selection, a forward-looking approach to product design, and an integrated hardware-software development strategy are critical to a strong start in your embedded project. By prioritizing these considerations, you’re well positioned to deliver a product that meets current requirements in a reasonable amount of time and is adaptable for future demands.
+
+We recommend reading a couple of our best practice guides, Designing Your First Embedded Linux Device and Best Practices: Embedded Development Hardware, which addresses this topic in more detail along with other best practices to get your project started on the right foot.
