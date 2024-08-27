@@ -1,0 +1,17 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="com.kdab.PeopleServerAPI">
+    <method name="getMatches">
+      <arg type="a{ssss}" direction="out"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVector&lt;Person&gt;"/>
+      <arg name="field" type="s" direction="in"/>
+      <arg name="searchValue" type="s" direction="in"/>
+    </method>
+    <method name="getFlagName">
+      <arg type="s" direction="out"/>
+      <arg name="country" type="s" direction="in"/>
+    </method>
+    <method name="quit">
+    </method>
+  </interface>
+</node>
