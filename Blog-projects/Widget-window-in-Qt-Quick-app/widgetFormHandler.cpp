@@ -6,28 +6,25 @@ WidgetFormHandler::WidgetFormHandler(QObject *parent)
     m_window = new FontControlsWidgetsForm();
     m_window->setVisible(false);
 
-    QObject::connect(m_window, &FontControlsWidgetsForm::on_pushButton_clicked, this, &WidgetFormHandler::toggleWidgetsWindow);
+    QObject::connect(m_window, &FontControlsWidgetsForm::pushButton_clicked, this, &WidgetFormHandler::toggleWidgetsWindow);
     QObject::connect(m_window, &FontControlsWidgetsForm::textChanged, this, &WidgetFormHandler::textChanged);
     QObject::connect(m_window, &FontControlsWidgetsForm::fontChanged, this, &WidgetFormHandler::fontChanged);
 }
 
-bool WidgetFormHandler::isVisible()
+const bool WidgetFormHandler::isVisible()
 {
     return m_window->isVisible();
 }
 
 void WidgetFormHandler::setVisible(bool visible)
 {
-    if (visible)
-        m_window->show();
-    else
-        m_window->hide();
+    m_window->setVisible(visible);
     emit visibleChanged();
 }
 
-QString WidgetFormHandler::getText()
+const QString WidgetFormHandler::text()
 {
-    return m_window->getText();
+    return m_window->text();
 }
 
 void WidgetFormHandler::setText(const QString& text)
@@ -36,7 +33,7 @@ void WidgetFormHandler::setText(const QString& text)
     emit textChanged();
 }
 
-QString WidgetFormHandler::getFont()
+const QString WidgetFormHandler::font()
 {
-    return m_window->getFont();
+    return m_window->font();
 }

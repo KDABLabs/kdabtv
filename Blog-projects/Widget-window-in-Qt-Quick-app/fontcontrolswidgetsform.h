@@ -10,28 +10,28 @@ class FontControlsWidgetsForm;
 class FontControlsWidgetsForm : public QWidget
 {
     Q_OBJECT
-    Q_PROPERTY(QString text READ getText WRITE setText NOTIFY textChanged)
-    Q_PROPERTY(QString font READ getFont NOTIFY fontChanged)
+    Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
+    Q_PROPERTY(QString font READ font NOTIFY fontChanged)
 
 public:
     explicit FontControlsWidgetsForm(QWidget *parent = nullptr);
     ~FontControlsWidgetsForm();
 
-    QString getText();
+    const QString text();
     void setText(const QString&);
-    QString getFont();
+    const QString font();
 
 signals:
     void textChanged();
     void fontChanged();
-    void on_pushButton_clicked();
+    void pushButton_clicked();
 
 protected:
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
 
 private slots:
-    void on_lineEdit_textChanged(const QString &arg1);
-    void on_fontComboBox_currentFontChanged(const QFont &f);
+    void lineEdit_textChanged(const QString &arg1);
+    void fontComboBox_currentFontChanged(const QFont &f);
 
 private:
     Ui::FontControlsWidgetsForm *ui;

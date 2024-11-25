@@ -6,6 +6,9 @@ FontControlsWidgetsForm::FontControlsWidgetsForm(QWidget *parent)
     , ui(new Ui::FontControlsWidgetsForm)
 {
     ui->setupUi(this);
+    connect(ui->lineEdit, &QLineEdit::textEdited, this, &FontControlsWidgetsForm::lineEdit_textChanged);
+    connect(ui->fontComboBox, &QFontComboBox::currentFontChanged, this, &FontControlsWidgetsForm::fontComboBox_currentFontChanged);
+    connect(ui->pushButton, &QPushButton::clicked, this, &FontControlsWidgetsForm::pushButton_clicked);
 }
 
 FontControlsWidgetsForm::~FontControlsWidgetsForm()
@@ -13,12 +16,12 @@ FontControlsWidgetsForm::~FontControlsWidgetsForm()
     delete ui;
 }
 
-QString FontControlsWidgetsForm::getText()
+const QString FontControlsWidgetsForm::text()
 {
     return ui->lineEdit->text();
 }
 
-void FontControlsWidgetsForm::on_lineEdit_textChanged(const QString &arg1)
+void FontControlsWidgetsForm::lineEdit_textChanged(const QString &arg1)
 {
     emit textChanged();
 }
@@ -29,7 +32,7 @@ void FontControlsWidgetsForm::setText(const QString &text)
     emit textChanged();
 }
 
-QString FontControlsWidgetsForm::getFont()
+const QString FontControlsWidgetsForm::font()
 {
     return ui->fontComboBox->currentFont().family();
 }
@@ -38,8 +41,7 @@ void FontControlsWidgetsForm::closeEvent(QCloseEvent *event) {
     QApplication::quit();
 }
 
-void FontControlsWidgetsForm::on_fontComboBox_currentFontChanged(const QFont &f)
+void FontControlsWidgetsForm::fontComboBox_currentFontChanged(const QFont &f)
 {
     emit fontChanged();
 }
-

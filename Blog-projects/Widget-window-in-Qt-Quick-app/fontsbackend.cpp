@@ -7,7 +7,7 @@ FontsBackend::FontsBackend(QObject *parent)
 {
 }
 
-QStringList FontsBackend::fontList()
+const QStringList FontsBackend::fontList()
 {
     return QFontDatabase::families();
 }

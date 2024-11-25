@@ -12,17 +12,17 @@ class WidgetFormHandler : public QObject
     Q_OBJECT
     QML_ELEMENT
     Q_PROPERTY(bool visible READ isVisible WRITE setVisible NOTIFY visibleChanged)
-    Q_PROPERTY(QString text READ getText WRITE setText NOTIFY textChanged)
-    Q_PROPERTY(QString font READ getFont NOTIFY fontChanged)
+    Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
+    Q_PROPERTY(QString font READ font NOTIFY fontChanged)
 
 public:
     explicit WidgetFormHandler(QObject *parent = nullptr);
 
-    bool isVisible();
+    const bool isVisible();
     void setVisible(bool);
-    QString getText();
+    const QString text();
     void setText(const QString&);
-    QString getFont();
+    const QString font();
 
 signals:
     void visibleChanged();

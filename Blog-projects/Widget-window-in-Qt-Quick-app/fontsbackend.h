@@ -13,7 +13,7 @@ private:
 public:
     explicit FontsBackend(QObject *parent = nullptr);
 
-    Q_INVOKABLE QStringList fontList();
+    Q_INVOKABLE static const QStringList fontList();
 
 signals:
 };
