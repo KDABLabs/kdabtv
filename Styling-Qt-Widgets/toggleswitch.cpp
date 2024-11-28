@@ -83,7 +83,7 @@ void ToggleSwitch::paintEvent(QPaintEvent *)
     valueRect.setWidth(valueRect.height()); // must be a square
 
     if (m_checked) {
-        valueRect.moveLeft(width() / 2);
+        valueRect.moveLeft(width() - valueRect.width() - s_innerMargin);
         painter.setPen(QPen(ColorRepository::progressBarOutlineBrush(valueRect), 1));
         painter.setBrush(Qt::NoBrush);
     } else {
