@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/i18n">
+        <file>editor_da.qm</file>
+        <file>editor_fr.qm</file>
+        <file>editor_en_gb.qm</file>
+    </qresource>
+</RCC>
