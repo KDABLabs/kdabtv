@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QFontDatabase>
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +13,7 @@ int main(int argc, char *argv[])
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
+    QFontDatabase::addApplicationFont(":/qt/qml/WidgetWindowsInQtQuickApp/fonts/OpenSans-Regular.ttf");
     engine.loadFromModule("WidgetWindowsInQtQuickApp", "Main");
 
     return app.exec();

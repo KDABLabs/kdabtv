@@ -21,7 +21,7 @@ qt_add_qml_module(appWidgetWindowsInQtQuickApp
         fontcontrolswidgetsform.h fontcontrolswidgetsform.cpp
         timer.h timer.cpp
         widgetFormHandler.h widgetFormHandler.cpp
-        RESOURCES fontcontrolswidgetsform.ui
+        RESOURCES fontcontrolswidgetsform.ui fonts/OpenSans-Regular.ttf
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

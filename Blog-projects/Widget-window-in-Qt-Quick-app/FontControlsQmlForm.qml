@@ -41,7 +41,7 @@ Window {
             Layout.fillWidth: true
             Component.onCompleted: {
                 if (!fontSelector.currentIndex)
-                    currentIndex = indexOfValue("Noto Sans");
+                    currentIndex = indexOfValue("Open Sans");
             }
             Cpp.FontsBackend {
                 id: fontsBackend

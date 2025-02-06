@@ -29,7 +29,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QFontComboBox" name="fontComboBox"/>
+    <widget class="QFontComboBox" name="fontComboBox">
+     <property name="currentText">
+      <string>Open Sans</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
