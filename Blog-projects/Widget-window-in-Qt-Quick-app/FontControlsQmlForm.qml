@@ -28,7 +28,7 @@ Window {
             Layout.fillWidth: true
         }
         Button {
-            text: "Switch to Widgets Form"
+            text: qsTr("Switch to Widgets Form")
             Layout.fillWidth: true
             onClicked: {
                 window.toggleWidgetsWindow();
