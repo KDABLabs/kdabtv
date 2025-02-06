@@ -3,7 +3,7 @@
 #include <QFontDatabase>
 
 FontsBackend::FontsBackend(QObject *parent)
-    : QObject{parent}
+    : QObject(parent)
 {
 }
 

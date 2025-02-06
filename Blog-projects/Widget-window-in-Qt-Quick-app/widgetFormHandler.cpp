@@ -2,7 +2,7 @@
 #include "fontcontrolswidgetsform.h"
 
 WidgetFormHandler::WidgetFormHandler(QObject *parent)
-    : QObject{parent}
+    : QObject(parent)
     , m_window(std::make_unique<FontControlsWidgetsForm>())
 {
     m_window->setVisible(false);

@@ -1,7 +1,7 @@
 #include "timer.h"
 
 Timer::Timer(QObject *parent)
-    : QObject{parent}
+    : QObject(parent)
 {
     m_timer.start();
 }
