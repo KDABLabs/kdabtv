@@ -5,9 +5,12 @@ import WidgetWindowsInQtQuickApp as Cpp
 
 Window {
     id: window
+
     readonly property alias text: textField.text
     readonly property string fontFamily: fontSelector.model[fontSelector.currentIndex]
+
     signal toggleWidgetsWindow
+
     height: 110
     width: 300
     minimumHeight: 110
@@ -15,6 +18,7 @@ Window {
     visible: true
     title: qsTr("Font Controls - Qt Quick")
     color: systemPalette.window
+
     SystemPalette {
         id: systemPalette
     }

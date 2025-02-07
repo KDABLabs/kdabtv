@@ -3,7 +3,9 @@ import WidgetWindowsInQtQuickApp as Cpp
 
 Window {
     id: frame
+
     property bool widgetsWindow: false
+
     function updatePosition(miliseconds: int): void {
         const time = miliseconds / 1000.0;
         const aspectRatio = boundary.right / boundary.bottom * 11
@@ -16,11 +18,13 @@ Window {
     function toggleWidgetsWindow() {
         frame.widgetsWindow = !frame.widgetsWindow
     }
+
     flags: Qt.FramelessWindowHint
     color: "transparent"
     visible: false
     width: bounce.width + 1
     height: bounce.height
+
     QtObject {
         id: boundary
         readonly property int right: Screen.desktopAvailableWidth - frame.width
