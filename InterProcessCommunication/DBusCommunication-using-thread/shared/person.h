@@ -25,7 +25,7 @@ SOFTWARE.
 
 #include <QMetaType>
 #include <QString>
-#include <vector>
+#include <QVector>
 
 class QDBusArgument;
 

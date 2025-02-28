@@ -9,7 +9,7 @@ set(PROJECT_SOURCES
 )
 
 # This XML file was generated with the command
-# qdbuscpp2xml -A ../server/peopleserver.h -t 'QVector<Person>=a{ssss}' -o ../shared/com.kdab.PeopleServerAPI.xml
+# qdbuscpp2xml -A ../server/peopleserver.h -t 'QVector<Person>=a(ssss)' -o ../shared/com.kdab.PeopleServerAPI.xml
 # I added the -t feature for qdbuscpp2xml while working on this tutorial,
 # so it didn't exist before Qt 6.3, see https://codereview.qt-project.org/c/qt/qtbase/+/366533
 #

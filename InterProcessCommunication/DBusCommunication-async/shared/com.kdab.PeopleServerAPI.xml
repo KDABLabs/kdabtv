@@ -2,7 +2,7 @@
 <node>
   <interface name="com.kdab.PeopleServerAPI">
     <method name="getMatches">
-      <arg type="a{ssss}" direction="out"/>
+      <arg type="a(ssss)" direction="out"/>
       <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="QVector&lt;Person&gt;"/>
       <arg name="field" type="s" direction="in"/>
       <arg name="searchValue" type="s" direction="in"/>
