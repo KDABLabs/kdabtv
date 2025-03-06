@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FontControlsWidgetsForm</class>
+ <widget class="QWidget" name="FontControlsWidgetsForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>110</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Font Controls - Qt Widgets</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="text">
+      <string>KDAB</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Switch to QML Form</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFontComboBox" name="fontComboBox">
+     <property name="currentText">
+      <string>Open Sans</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
