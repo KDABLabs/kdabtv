@@ -179,6 +179,18 @@ void Example::draw(QPainter *painter, Mode mode)
         drawPoint(painter, -boundingRect.topLeft(), Qt::blue);
         break;
     }
+    case Explanation: {
+        QPoint pos{0, 0};
+        painter->setPen(Qt::black);
+        painter->drawText(pos, text);
+        drawPoint(painter, pos, Qt::blue);
+        painter->setPen(QPen(Qt::green, 3.0 / SCALE, Qt::SolidLine));
+        rect = fm.boundingRect(text);
+        rect.translate(pos);
+        painter->drawRect(rect);
+        painter->setPen(Qt::black);
+        break;
+    }
     }
 }
 
@@ -238,6 +250,22 @@ void Example::nextStep(int delta)
         break;
     case UsingPointAPITight:
         setTitle("Finally let's check if it also works with tightBoundingRect()");
+        break;
+    case Explanation:
+        setTitle("Explanation: Text is drawn around the baseline and the horizontal advance. "
+                 "A character can have a leftBearing(), which might be negative like the italic "
+                 "f and j extending into the previous character. Likewise for the right, but "
+                 "possibly extending into the next one. Since in the vertical direction 0 is "
+                 "the baseline, the top is at -ascend() and the bottom at descend().\n"
+                 "\n"
+                 "Hence the boundingRect is always negative in the y-direction and can be in the "
+                 "x-direction. That is not a point and a size as suggested on youtube, it _is_ the "
+                 "bounding rect, but around the _point_ the text is drawn at and not the rectangle "
+                 "the text is drawn _in_ as the helper qpainter->drawText(rect) does.\n"
+                 "\n"
+                 "It can be easily demonstrated by drawing the text at 0,0 and "
+                 "drawing the boundingRect() as shown below."
+                 );
         break;
     }
     update();
