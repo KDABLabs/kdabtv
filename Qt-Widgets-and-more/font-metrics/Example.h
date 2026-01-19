@@ -30,7 +30,8 @@ private:
         TightBoundaryBox,
         UsingPointAPI,
         UsingPointAPITight,
-        NumberOfModes = UsingPointAPITight,
+        Explanation,
+        NumberOfModes = Explanation,
     };
     void draw(QPainter *painter, Mode);
     void nextStep(int delta);
