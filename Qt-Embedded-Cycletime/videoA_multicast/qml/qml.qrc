@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>WebRTCLeftPage.qml</file>
+        <file>WebRTCBottomPage.qml</file>
+        <file>grabqml.pro</file>
+        <file>WebRTCTopPage.qml</file>
+        <file>WebRTCCenterPage.qml</file>
+        <file>WebRTCRadioButton.qml</file>
+        <file>WebRTCSlider.qml</file>
+        <file>WebRTCRightPage.qml</file>
+        <file>WebRTCLabel.qml</file>
+        <file>WebRTCDialog.qml</file>
+        <file>WebRTCRedButton.qml</file>
+        <file>WebRTCGridTile.qml</file>
+        <file>WebRTCSortTile.qml</file>
+        <file>WebRTCIconRect.qml</file>
+        <file>WebRTCTile.qml</file>
+        <file>WebRTCBold.qml</file>
+        <file>CCIStyle.qml</file>
+        <file>path1.png</file>
+        <file>parts.svg</file>
+        <file>kdab_logo.png</file>
+        <file>kdab_logo_square.png</file>
+        <file>demo_logos.png</file>
+        <file>nuremberg.jpg</file>
+        <file>kdab_skills/kdab_qt.png</file>
+        <file>kdab_skills/kdab_flutter.png</file>
+        <file>kdab_skills/kdab_3d.png</file>
+        <file>kdab_skills/kdab_slint.png</file>
+        <file>kdab_skills/kdab_os.png</file>
+        <file>kdab_skills/kdab_rust.png</file>
+        <file>kdab_skills/kdab_cpp.png</file>
+        <file>PageChangeButton.qml</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GstWebRTC API</title>
+    <style>
+        body {
+          background-color: #0569d8;
+          color: #ffffff;
+        }
+
+        section {
+          border-top: 2px solid #ffffff;
+        }
+
+        main {
+          border-bottom: 2px solid #ffffff;
+          padding-bottom: 1em;
+        }
+    </style>
+    <script>
+
+    function initRemoteStreams(api) {
+      const remoteStreamsElement = document.getElementById("remote-streams");
+
+      const listener = {
+        producerAdded: function(producer) {
+          const producerId = producer.id
+          if (!document.getElementById(producerId)) {
+            remoteStreamsElement.insertAdjacentHTML("beforeend",
+              `<li id="${producerId}">
+                                <div class="button">${producer.meta.name || producerId} click me!</div>
+                                <div class="video">
+                                    <video></video>
+                                </div>
+                            </li>`);
+
+            const entryElement = document.getElementById(producerId);
+            const videoElement = entryElement.getElementsByTagName("video")[0];
+
+            videoElement.addEventListener("playing", () => {
+            });
+
+            entryElement.addEventListener("click", (event) => {
+              event.preventDefault();
+              if (!event.target.classList.contains("button")) {
+                return;
+              }
+
+              if (entryElement._consumerSession) {
+                entryElement._consumerSession.close();
+              } else {
+                let session = api.createConsumerSession(producerId);
+
+                if (session) {
+                  entryElement._consumerSession = session;
+
+                  session.mungeStereoHack = true;
+
+                  session.addEventListener("error", (event) => {
+                    if (entryElement._consumerSession === session) {
+                      console.error(event.message, event.error);
+                    }
+                  });
+
+                  session.addEventListener("closed", () => {
+                    if (entryElement._consumerSession === session) {
+                      videoElement.pause();
+                      videoElement.srcObject = null;
+                      delete entryElement._consumerSession;
+                    }
+                  });
+
+                  session.addEventListener("streamsChanged", () => {
+                    if (entryElement._consumerSession === session) {
+                      const streams = session.streams;
+                      if (streams.length > 0) {
+                        videoElement.srcObject = streams[0];
+                        videoElement.play().catch(() => {});
+                      }
+                    }
+                  });
+
+                  session.addEventListener("remoteControllerChanged", () => {
+                    if (entryElement._consumerSession === session) {
+                      const remoteController = session.remoteController;
+                      if (remoteController) {
+                        remoteController.attachVideoElement(videoElement);
+                        remoteController.addEventListener("info", (e) => {
+                          console.log("Received info message from producer: ", e.detail);
+                        });
+                      }
+                    }
+                  });
+
+                  session.connect();
+                }
+              }
+            });
+          }
+        },
+
+        producerRemoved: function(producer) {
+          const element = document.getElementById(producer.id);
+          if (element) {
+            if (element._consumerSession) {
+              element._consumerSession.close();
+            }
+
+            element.remove();
+          }
+        }
+      };
+
+      api.registerPeerListener(listener);
+
+      const connectionListener = {
+        connected: function(peerId) {
+          console.log("Connected to signalling server as peer", peerId);
+        },
+
+        disconnected: function() {
+          console.log("Disconnected from signalling server");
+        }
+      };
+
+      api.registerConnectionListener(connectionListener);
+
+      for (const producer of api.getAvailableProducers()) {
+        listener.producerAdded(producer);
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const signalingProtocol = window.location.protocol.startsWith("https") ? "wss" : "ws";
+      const gstWebRTCConfig = {
+        meta: { name: `WebClient-${Date.now()}` },
+        reconnectionTimeout: 1000,
+        signalingServerUrl: `${signalingProtocol}://${window.location.hostname}:8443`,
+      };
+
+      const api = new GstWebRTCAPI(gstWebRTCConfig);
+      initRemoteStreams(api);
+    });
+    </script>
+  <script src="gstwebrtc-api-3.0.0.min.js"></script></head>
+  <body>
+    <header>
+      <h1>KDAB</h1>
+    </header>
+    <main>
+      <section>
+        <h1>Remote streams</h1>
+        <ul id="remote-streams">
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

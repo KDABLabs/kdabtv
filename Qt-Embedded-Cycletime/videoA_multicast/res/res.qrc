@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>gstwebrtc-api-3.0.0.min.js</file>
+        <file>gstwebrtc-api-3.0.0.min.js.map</file>
+        <file>index.html</file>
+    </qresource>
+</RCC>
