@@ -1,0 +1,7 @@
+class Sensors
+{
+    ENUM Status {Idle, Cooling, Heating}
+    PROP(Status status = Idle READONLY)
+    PROP(double currentTemperature = 21 READONLY)
+    PROP(double targetTemperature = 21)
+}
